@@ -88,4 +88,4 @@ class User(Base):
     )
 
 
-from openhealthkit.models.organization import Organization  # noqa: E402
+from openhealthkit.models.organization import Organization
