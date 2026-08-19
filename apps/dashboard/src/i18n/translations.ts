@@ -1,0 +1,50 @@
+export const translations = {
+  en: {
+    welcome: "System Overview",
+
+    app_name: "OpenHealthKit",
+    tagline: "Offline-first toolkit for resilient community and public-health applications",
+    demo_badge: "DEMO DATA",
+    demo_notice: "Synthetic dataset for testing and demonstration only.",
+    nav_overview: "Overview",
+    nav_records: "Health Records",
+    nav_alerts: "Alerts & Rules",
+    nav_sync: "Offline Sync",
+    nav_analytics: "Analytics",
+    nav_settings: "Settings",
+    kpi_records: "Total Records",
+    kpi_observations: "Observations Logged",
+    kpi_alerts: "Active Alerts",
+    kpi_sync: "Sync Queue",
+    btn_add_record: "New Record",
+    btn_sync_now: "Push Pending Sync",
+    status_open: "Open",
+    status_acknowledged: "Acknowledged",
+    status_resolved: "Resolved",
+  },
+  hi: {
+    welcome: "सिस्टम अवलोकन",
+    app_name: "ओपनहेल्थकिट",
+    tagline: "लचीले समुदाय स्वास्थ्य अनुप्रयोगों के लिए ऑफ़लाइन-पहला टूलकिट",
+    demo_badge: "डेमो डेटा",
+    demo_notice: "केवल परीक्षण और प्रदर्शन के लिए सिंथेटिक डेटा।",
+    nav_overview: "अवलोकन (Overview)",
+    nav_records: "स्वास्थ्य रिकॉर्ड",
+    nav_alerts: "चेतावनी व नियम",
+    nav_sync: "ऑफ़लाइन सिंक",
+    nav_analytics: "विश्लेषण",
+    nav_settings: "सेटिंग्स",
+    kpi_records: "कुल रिकॉर्ड्स",
+    kpi_observations: "दर्ज निरीक्षण",
+    kpi_alerts: "सक्रिय चेतावनियाँ",
+    kpi_sync: "सिंक कतार (Sync Queue)",
+    btn_add_record: "नया रिकॉर्ड",
+    btn_sync_now: "सिंक पुश करें",
+    status_open: "खुला है",
+    status_acknowledged: "स्वीकृत",
+    status_resolved: "हल किया गया",
+  }
+};
+
+
+export type Language = 'en' | 'hi';

@@ -1,0 +1,13 @@
+# OpenHealthKit Repository Code Owners
+
+# Global owners
+*       @openhealthkit/core-maintainers
+
+# Core Python Backend
+/packages/openhealthkit/ @openhealthkit/backend-team
+
+# Dashboard App
+/apps/dashboard/ @openhealthkit/frontend-team
+
+# Security & Compliance
+/SECURITY.md @openhealthkit/security-team

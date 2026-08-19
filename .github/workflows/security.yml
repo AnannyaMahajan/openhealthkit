@@ -1,0 +1,31 @@
+name: Security & Vulnerability Audit
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 1' # Every Monday
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Security Scanners
+        run: |
+          pip install bandit pip-audit
+
+      - name: Run Bandit Code Security Analysis
+        run: |
+          bandit -r packages/openhealthkit/src -ll
+
+      - name: Audit Python Dependencies
+        run: |
+          pip-audit || true

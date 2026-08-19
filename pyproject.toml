@@ -1,0 +1,15 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "openhealthkit-workspace"
+version = "0.1.0"
+description = "OpenHealthKit workspace repository"
+requires-python = ">=3.11"
+dependencies = [
+    "openhealthkit"
+]
+
+[tool.uv.sources]
+openhealthkit = { path = "packages/openhealthkit", editable = true }
