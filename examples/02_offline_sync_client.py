@@ -5,7 +5,7 @@ Demonstrates:
 1. Initializing local SQLite offline sync queue.
 2. Queuing synthetic health records offline when disconnected.
 3. Inspecting pending synchronization queue state.
-4. Pushing offline mutations to remote server upon reconnection.
+4. Attempting remote push synchronization to server upon reconnection.
 
 Usage:
     python examples/02_offline_sync_client.py
@@ -64,16 +64,40 @@ def run_client_demo():
         print(f"    Item 1 Action: {first_item['action']} {first_item['entity_type']}")
         print(f"    Item 1 Timestamp: {first_item['client_timestamp']}")
 
+    local_queue_success = len(pending_items) > 0
+
     # 4. Attempt remote sync push upon reconnection
     print("\n[4] Attempting remote sync push to server (Simulating reconnection)...")
     result = client.sync_push()
-    print(f"    Sync Operation Status: {result.get('status')}")
-    if result.get('status') in ('error', 'network_error'):
-        print(f"    Server Response Notice: {result.get('text') or result.get('error')}")
-        print("    (Note: Network error or 401 response is expected when offline or unauthenticated)")
+    sync_status = result.get("status")
+
+    remote_sync_success = sync_status == "success" or (
+        isinstance(sync_status, str) and sync_status != "error" and sync_status != "network_error"
+    )
 
     print("\n" + "=" * 60)
-    print("  Offline Sync Workflow Completed Successfully!")
+    print("  SUMMARY OF RESULTS")
+    print("=" * 60)
+
+    if local_queue_success:
+        print("  LOCAL OFFLINE QUEUE: SUCCESS")
+    else:
+        print("  LOCAL OFFLINE QUEUE: FAILED")
+
+    if remote_sync_success:
+        print("  REMOTE SYNC: SUCCESS")
+        print("  All local mutations successfully pushed to server!")
+    else:
+        print("  REMOTE SYNC: FAILED")
+        reason = result.get("text") or result.get("error") or f"HTTP Status {result.get('code')}"
+        if "Could not validate credentials" in str(reason):
+            reason = "Could not validate credentials"
+        print(f"  Reason: {reason}")
+        print("\n  Explanation:")
+        print("  - Local offline queue succeeded: Mutations were safely stored in local SQLite.")
+        print("  - Remote sync failed: Pushing to remote server requires active connectivity")
+        print("    and a valid JWT authentication token (pass auth_token to sync_push).")
+
     print("=" * 60)
 
 
