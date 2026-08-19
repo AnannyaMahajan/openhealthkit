@@ -1,4 +1,5 @@
 import inspect
+from typing import Any
 
 from openhealthkit.plugins.base import BasePlugin
 from openhealthkit.utils.logger import logger
@@ -21,7 +22,8 @@ class PluginManager:
             del self.plugins[plugin_name]
             logger.info(f"Unregistered OpenHealthKit Plugin: '{plugin_name}'")
 
-    async def dispatch_event(self, event_name: str, **kwargs: str) -> None:
+    async def dispatch_event(self, event_name: str, **kwargs: Any) -> None:
+
         for name, plugin in self.plugins.items():
             handler = getattr(plugin, event_name, None)
             if handler and callable(handler):

@@ -72,15 +72,16 @@ async def create_health_record(
         .where(HealthRecord.id == record.id)
         .options(selectinload(HealthRecord.observations))
     )
-    record = (await db.execute(reload_stmt)).scalars().first()
+    reloaded_record = (await db.execute(reload_stmt)).scalars().first()
 
     # Evaluate alerts if observations included
-    if record and record.observations:
+    if reloaded_record and reloaded_record.observations:
         from openhealthkit.alerts import alert_engine
 
-        for obs in record.observations:
+        for obs in reloaded_record.observations:
             await alert_engine.evaluate_observation(db, obs)
         await db.commit()
+
 
     await audit_logger.log_action(
         db,

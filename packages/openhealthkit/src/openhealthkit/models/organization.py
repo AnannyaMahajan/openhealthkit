@@ -59,5 +59,5 @@ class Community(Base):
     )
 
 
-from openhealthkit.models.health_record import HealthRecord  # noqa: E402
-from openhealthkit.models.user import User  # noqa: E402
+from openhealthkit.models.health_record import HealthRecord
+from openhealthkit.models.user import User

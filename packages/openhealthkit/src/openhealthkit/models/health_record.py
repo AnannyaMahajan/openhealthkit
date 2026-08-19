@@ -69,4 +69,4 @@ class Observation(Base):
     )
 
 
-from openhealthkit.models.organization import Community  # noqa: E402
+from openhealthkit.models.organization import Community

@@ -71,10 +71,11 @@ def require_permission(required_permission: SystemPermission | str) -> Callable:
             try:
                 sys_role = SystemRole(role.name)
                 if sys_role in ROLE_PERMISSIONS_MAP:
-                    for p in ROLE_PERMISSIONS_MAP[sys_role]:
-                        user_permissions.add(p.value)
+                    for perm_enum in ROLE_PERMISSIONS_MAP[sys_role]:
+                        user_permissions.add(perm_enum.value)
             except ValueError:
                 pass
+
 
         if perm_str not in user_permissions and "ADMIN" not in [r.name for r in current_user.roles]:
             raise HTTPException(

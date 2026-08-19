@@ -45,7 +45,8 @@ async def create_user(
     if req.role_names:
         r_stmt = select(Role).where(Role.name.in_(req.role_names))
         r_res = await db.execute(r_stmt)
-        user.roles = r_res.scalars().all()
+        user.roles = list(r_res.scalars().all())
+
 
     db.add(user)
     await db.commit()
